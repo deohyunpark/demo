@@ -23,8 +23,6 @@ public class JobHistoryEntity {
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employeeId;
 
-
-
     @Setter
     private Date startDate;
 

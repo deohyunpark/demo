@@ -32,7 +32,7 @@ public class EmployeeService {
                 () -> new DemoApplicationException(ErrorCode.EMPLOYEE_NOT_FOUND, String.format("%s is not founded", employeeId)));
 
         Optional<DepartmentEntity> department = departmentRepository.findById(entity.getDepartmentId().getDepartmentId());
-        return Employee.fromEmployee(entity, department.orElseThrow());
+        return Employee.fromEmployee(entity, department.get());
 
     }
 
