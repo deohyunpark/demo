@@ -17,12 +17,12 @@ public class DepartmentEntity {
     private String departmentName;
 
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "manager_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manager_id", nullable = true)
     private EmployeeEntity managerId;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private LocationEntity locationId;
 

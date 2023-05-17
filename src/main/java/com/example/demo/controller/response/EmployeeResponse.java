@@ -1,6 +1,7 @@
 package com.example.demo.controller.response;
 
 import com.example.demo.model.Employee;
+import com.example.demo.model.ManagerInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,7 +42,7 @@ public class EmployeeResponse {
 
     private String regionName;
 
-    private String managerName;
+    private ManagerInfo managerInfo;
 
     public static EmployeeResponse fromEmployee(Employee employee) {
         return EmployeeResponse.builder()
@@ -55,7 +56,7 @@ public class EmployeeResponse {
                 .jobTitle(employee.getJobTitle())
                 .phoneNumber(employee.getPhoneNumber())
                 .regionName(employee.getRegionName())
-                .managerName(employee.getManagerName())
+                .managerInfo(employee.getManager())
                 .stateProvince(employee.getStateProvince())
                 .salary(employee.getSalary())
                 .departmentName(employee.getDepartmentName())

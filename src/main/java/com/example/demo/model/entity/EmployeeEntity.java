@@ -4,6 +4,8 @@ import com.example.demo.model.Employee;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -36,7 +38,7 @@ public class EmployeeEntity {
     private Date hireDate;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id")
     private JobEntity jobId;
 
@@ -48,12 +50,12 @@ public class EmployeeEntity {
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="manager_id", insertable = false, updatable = false)
+    @JoinColumn(name="manager_id", referencedColumnName = "employee_id",insertable = false, updatable = false)
     private EmployeeEntity managerId;
 
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private DepartmentEntity departmentId;
 
