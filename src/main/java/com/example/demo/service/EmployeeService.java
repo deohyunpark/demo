@@ -41,15 +41,13 @@ public class EmployeeService {
         employeeRepository.findById(employeeId).orElseThrow(
                 () -> new DemoApplicationException(ErrorCode.EMPLOYEE_NOT_FOUND, String.format("%s is not founded", employeeId)));
 
-        List<JobHistoryEntity> jobHistory = jobHistoryRepository.findAllById(employeeId);
+        List<JobHistoryEntity> jobHistory = jobHistoryRepository.findAllByEmployeeId(employeeId);
         //해당 사원의 이력이 존재하지 않을 시 에러 반환
         if (jobHistory.isEmpty()) {
             throw new DemoApplicationException(ErrorCode.HISTORY_NOT_EXIST, String.format("%s 's history is not exist", employeeId));
         }
 
-        
-
-        return JobHistory.fromEntity(jobHistory);
+        return JobHistory.fromEntities(jobHistory);
 
     }
 }

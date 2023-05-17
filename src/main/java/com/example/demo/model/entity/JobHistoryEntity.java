@@ -1,25 +1,29 @@
 package com.example.demo.model.entity;
 
+import com.example.demo.model.JobHistoryId;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "job_history")
 @Getter
 public class JobHistoryEntity {
 
-    @Id
-    @Column(name = "employee_id")
-    private Integer id;
+    @EmbeddedId
+    private JobHistoryId id;
 
-    @OneToOne
-    @MapsId
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("employeeId")
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employeeId;
+
+
 
     @Setter
     private Date startDate;
@@ -28,12 +32,14 @@ public class JobHistoryEntity {
     private Date endDate;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("jobId")
     @JoinColumn(name = "job_id")
     private JobEntity jobId;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("departmentId")
     @JoinColumn(name = "department_id")
     private DepartmentEntity departmentId;
 

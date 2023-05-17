@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -37,5 +39,12 @@ public class HistoryResponse {
                 .build();
 
 
+    }
+
+    public static List<HistoryResponse> fromHistories(List<JobHistory> histories) {
+        List<HistoryResponse> responses = new ArrayList<>();
+        histories.forEach(l -> responses.add(HistoryResponse.fromHistory(l)));
+
+        return responses;
     }
 }

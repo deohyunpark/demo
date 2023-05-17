@@ -7,7 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -29,6 +31,7 @@ public class JobHistory {
 
 
     public static JobHistory fromEntity(JobHistoryEntity entity) {
+
         return JobHistory.builder()
                 .employeeId(entity.getEmployeeId().getEmployeeId())
                 .employeeName(entity.getEmployeeId().getFirstName() + " " + entity.getEmployeeId().getLastName())
@@ -39,4 +42,14 @@ public class JobHistory {
                 .build();
 
     }
+
+    public static List<JobHistory> fromEntities(List<JobHistoryEntity> entity) {
+
+        List<JobHistory> histories = new ArrayList<>();
+        entity.forEach(l -> histories.add(JobHistory.fromEntity(l)));
+        return histories;
+
+    }
+
+
 }

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/employees")
 @RequiredArgsConstructor
@@ -27,7 +29,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping("/{employeeId}")
-    @ApiOperation(value = "현재 정보 조회 API")
+    @ApiOperation(value = "특정 사원의 현재 정보 조회 API")
     public Response<EmployeeResponse> employeeInfo(@PathVariable Integer employeeId) {
 
         Employee employee = employeeService.selectEmployee(employeeId);
@@ -36,11 +38,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}/history")
-    public Response<HistoryResponse> employeeHistory(@PathVariable Integer employeeId) {
+    @ApiOperation(value = "특정 사원의 이력 정보 조회 API")
 
-        JobHistory history = employeeService.employeeHistory(employeeId);
+    public Response<List<HistoryResponse>> employeeHistory(@PathVariable Integer employeeId) {
 
-        return Response.success(HistoryResponse.fromHistory(history));
+        List<JobHistory> history = employeeService.employeeHistory(employeeId);
+
+        return Response.success(HistoryResponse.fromHistories(history));
     }
 
 }
