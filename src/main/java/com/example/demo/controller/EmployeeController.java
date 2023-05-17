@@ -25,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @ApiOperation(value = "사원 별 현재 정보 및 이력 조회")
 public class EmployeeController {
-
+    //TODO: ManagerId or DepartmentId 가 Null 일 경우 예외 던지지 않고 String Null 로 반환
     private final EmployeeService employeeService;
 
     @GetMapping("/{employeeId}")

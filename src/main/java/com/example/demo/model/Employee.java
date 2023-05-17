@@ -44,7 +44,7 @@ public class Employee {
 
     private String regionName;
 
-    private String managerName;
+    private ManagerInfo manager;
 
 
     public static Employee fromEmployee(EmployeeEntity entity, DepartmentEntity department) {
@@ -62,7 +62,7 @@ public class Employee {
                 .stateProvince(department.getLocationId().getStateProvince())
                 .countryName(department.getLocationId().getCountryId().getCountryName())
                 .regionName(department.getLocationId().getCountryId().getRegionId().getRegionName())
-                .managerName(entity.getManagerId().getFirstName() + " " + entity.getManagerId().getLastName())
+                .manager(ManagerInfo.managerInfo(department))
                 .build();
     }
 
