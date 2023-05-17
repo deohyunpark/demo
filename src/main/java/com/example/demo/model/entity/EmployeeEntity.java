@@ -1,11 +1,15 @@
 package com.example.demo.model.entity;
 
+import com.example.demo.model.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -43,9 +47,10 @@ public class EmployeeEntity {
     private BigDecimal commissionPct;
 
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="manager_id", insertable = false, updatable = false)
     private EmployeeEntity managerId;
+
 
     @Setter
     @ManyToOne

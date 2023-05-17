@@ -10,10 +10,14 @@ import java.util.Date;
 @Entity
 @Table(name = "job_history")
 @Getter
-public class JobHistoryEntity implements Serializable {
+public class JobHistoryEntity {
 
     @Id
-    @ManyToOne
+    @Column(name = "employee_id")
+    private Integer id;
+
+    @OneToOne
+    @MapsId
     @JoinColumn(name = "employee_id")
     private EmployeeEntity employeeId;
 
