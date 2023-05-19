@@ -1,6 +1,7 @@
 package com.example.demo.controller.response;
 
 import com.example.demo.model.JobHistory;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,16 +17,22 @@ import java.util.List;
 @Builder
 public class HistoryResponse {
 
+    @ApiModelProperty(example = "사원번호")
     private Integer employeeId;
 
+    @ApiModelProperty(example = "사원명")
     private String employeeName;
 
+    @ApiModelProperty(example = "입사일자")
     private Date startDate;
 
+    @ApiModelProperty(example = "퇴사일자")
     private Date endDate;
 
+    @ApiModelProperty(example = "직종")
     private String jobTitle;
 
+    @ApiModelProperty(example = "부서명")
     private String departmentTitle;
 
     public static HistoryResponse fromHistory(JobHistory history) {

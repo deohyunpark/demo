@@ -38,7 +38,7 @@ public class EmployeeEntity {
     private Date hireDate;
 
     @Setter
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "job_id")
     private JobEntity jobId;
 

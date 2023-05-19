@@ -3,14 +3,14 @@ package com.example.demo.controller;
 
 import com.example.demo.controller.response.DepartmentResponse;
 import com.example.demo.controller.response.Response;
+import com.example.demo.controller.response.SalaryUpdateResponse;
 import com.example.demo.model.Department;
+import com.example.demo.model.SalaryUpdatedList;
 import com.example.demo.service.DepartmentService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/v1/departments")
 @RequiredArgsConstructor
 @ApiOperation(value = "부서 관련 정보조회 및 급여수정")
+@Tag(name = "department", description = "부서 API")
 public class DepartmentController {
 
     private final DepartmentService departmentService;
@@ -31,11 +32,12 @@ public class DepartmentController {
         return Response.success(DepartmentResponse.fromDepartments(list));
     }
 
-    @GetMapping("/{departmentId}/salary-increase")
+    @PutMapping("/{departmentId}/salary-increase/{percent}")
     @ApiOperation(value = "부서 별 급여 인상 및 사원 정보 업데이트 API")
-    public void SalaryUpdate(@PathVariable Integer departmentId) {
+    public Response<List<SalaryUpdateResponse>> SalaryUpdate(@PathVariable Integer departmentId, @PathVariable double percent) {
+        List<SalaryUpdatedList> list = departmentService.salaryUpdate(departmentId, percent);
 
-        departmentService.salaryUpdate(departmentId);
+        return Response.success(SalaryUpdateResponse.fromUpdateLists(list));
 
     }
 

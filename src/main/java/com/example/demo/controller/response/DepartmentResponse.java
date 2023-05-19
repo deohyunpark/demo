@@ -4,6 +4,7 @@ import com.example.demo.model.Department;
 import com.example.demo.model.LocationInfo;
 import com.example.demo.model.ManagerInfo;
 import com.example.demo.model.entity.DepartmentEntity;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,12 +19,16 @@ import java.util.List;
 @Builder
 public class DepartmentResponse {
 
+    @ApiModelProperty(example = "부서코드")
     private Integer departmentId;
 
+    @ApiModelProperty(example = "부서이름")
     private String departmentName;
 
+    @ApiModelProperty(example = "매니저 정보")
     private ManagerInfo managerInfo;
 
+    @ApiModelProperty(example = "지역 정보")
     private LocationInfo location;
 
 

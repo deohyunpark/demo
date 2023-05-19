@@ -1,12 +1,13 @@
 package com.example.demo.controller.response;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
 public class Response<T> {
-
+    @ApiModelProperty(example = "응답코드")
     private String resultCode;
     private T result;
 
