@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.controller.request.SalaryIncreaseRequest;
 import com.example.demo.controller.response.DepartmentResponse;
 import com.example.demo.controller.response.Response;
 import com.example.demo.controller.response.SalaryUpdateResponse;
@@ -45,12 +46,10 @@ public class DepartmentController {
                     @ApiResponse(responseCode = "400", description = "인상하려는 급여 퍼센트가 적절한 값이 아님(정수입력불가)", content = @Content(schema = @Schema(implementation = ErrorCode.class))),
                     @ApiResponse(responseCode = "404", description = "해당 부서가 존재하지 않음", content = @Content(schema = @Schema(implementation = ErrorCode.class))),
                     @ApiResponse(responseCode = "500", description = "서버 내부 에러",content = @Content(schema = @Schema(implementation = ErrorCode.class)))})
-    @ApiImplicitParams(
-            {@ApiImplicitParam(name = "departmentId", value = "부서번호", dataType = "Integer", paramType = "path",required = true, dataTypeClass = Integer.class, example = "0"),
-                    @ApiImplicitParam(name = "percent", value = "월급인상률(EX - 0.1, 0.4)", dataType = "double", paramType = "path",required = true, dataTypeClass = Double.class, example = "0")})
-    @PutMapping("/{departmentId}/salary-increase/{percent}")
-    public Response<List<SalaryUpdateResponse>> SalaryUpdate(@PathVariable Integer departmentId, @PathVariable double percent) {
-        List<SalaryUpdatedList> list = departmentService.salaryUpdate(departmentId, percent);
+    @ApiImplicitParams({@ApiImplicitParam(name = "departmentId", value = "부서번호", dataType = "Integer", paramType = "path",required = true, dataTypeClass = Integer.class, example = "0")})
+    @PutMapping("/{departmentId}/salary-increase/")
+    public Response<List<SalaryUpdateResponse>> SalaryUpdate(@PathVariable Integer departmentId, @RequestBody SalaryIncreaseRequest request) {
+        List<SalaryUpdatedList> list = departmentService.salaryUpdate(departmentId, request.getPercent());
 
         return Response.success(SalaryUpdateResponse.fromUpdateLists(list));
 

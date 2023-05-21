@@ -25,10 +25,22 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	Swagger
+	//	Swagger
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
-//  guava DoubleMath
+	//  guava DoubleMath
 	implementation 'com.google.guava:guava:31.1-jre'
+	//데이터 변환
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.14.2'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.14.2'
+	// org.JSON
+	implementation files('libs/json-20230227.jar')
+
+
+
 
 
 }
