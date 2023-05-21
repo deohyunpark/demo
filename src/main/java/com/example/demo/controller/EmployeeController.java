@@ -30,16 +30,15 @@ import java.util.List;
 @RequestMapping("/v1/employees")
 @RequiredArgsConstructor
 @ApiOperation(value = "사원 별 현재 정보 및 이력 조회")
-@Tag(name = "employee", description = "사원 API")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    @GetMapping("/{employeeId}")
     @Operation(summary = "특정 사원의 현재 정보 조회 API" , description =  "사원번호를 통해 해당 사원의 정보를 조회한다.",
-    responses = { @ApiResponse(responseCode = "200", description = "사원 정보 조회 성공", content = @Content(schema = @Schema(implementation = EmployeeResponse.class))),
-            @ApiResponse(responseCode = "400", description = "해당 사번의 사원이 존재하지않음", content = @Content(schema = @Schema(implementation = ErrorCode.class))),
-            @ApiResponse(responseCode = "400", description = "서버 내부 에러", content = @Content(schema = @Schema(implementation = ErrorCode.class)))})
-    @ApiImplicitParam(name = "employeeId", value = "사원번호", dataType = "Integer", paramType = "path")
+    responses = { @ApiResponse(responseCode = "200", description = "사원 정보 조회 성공", content = @Content(schema = @Schema(implementation = ErrorCode.class))),
+            @ApiResponse(responseCode = "404", description = "해당 사번의 사원이 존재하지않음", content = @Content(schema = @Schema(implementation = ErrorCode.class))),
+            @ApiResponse(responseCode = "500", description = "서버 내부 에러")})
+    @ApiImplicitParam(name = "employeeId", value = "사원번호", dataType = "Integer", paramType = "path",required = true, dataTypeClass = Integer.class, example = "0")
+    @GetMapping("/{employeeId}")
     public Response<EmployeeResponse> employeeInfo(@PathVariable Integer employeeId) {
 
         Employee employee = employeeService.selectEmployee(employeeId);
@@ -47,9 +46,12 @@ public class EmployeeController {
         return Response.success(EmployeeResponse.fromEmployee(employee));
     }
 
+    @Operation(summary = "특정 사원의 이력 정보 조회 API" , description =  "사원번호를 통해 해당 사원의 이력 정보를 조회한다.",
+            responses = { @ApiResponse(responseCode = "200", description = "사원 이력 조회 성공"),
+                    @ApiResponse(responseCode = "404", description = "해당 사번의 사원이 존재하지않음", content = @Content(schema = @Schema(implementation = ErrorCode.class))),
+                    @ApiResponse(responseCode = "500", description = "서버 내부 에러", content = @Content(schema = @Schema(implementation = ErrorCode.class)))})
+    @ApiImplicitParam(name = "employeeId", value = "사원번호", dataType = "Integer", paramType = "path",required = true, dataTypeClass = Integer.class, example = "0")
     @GetMapping("/{employeeId}/history")
-    @ApiOperation(value = "특정 사원의 이력 정보 조회 API", notes = "사원번호를 통해 해당 사원의 이력 정보를 조회한다.")
-    @ApiImplicitParam(name = "employeeId", value = "사원번호", dataType = "Integer", paramType = "path")
     public Response<List<HistoryResponse>> employeeHistory(@PathVariable Integer employeeId) {
 
         List<JobHistory> history = employeeService.employeeHistory(employeeId);

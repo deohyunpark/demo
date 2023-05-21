@@ -20,7 +20,7 @@ import java.util.Set;
 public class SwaggerConfig {
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.OAS_30)
+        return new Docket(DocumentationType.SWAGGER_2)
                 .useDefaultResponseMessages(false) // Swagger 에서 제공해주는 기본 응답 코드를 표시할 것이면 true
                 .apiInfo(apiInfo())
                 .select()
@@ -46,7 +46,10 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Demo Spring Boot Project")
                 .version("1.0.0")
-                .description("사전과제 프로젝트 API 문서화 위한 Swagger API")
+                .description("사전과제 API 문서화 위한 Swagger API 입니다. " +
+                        "(Swagger 를 사용해서 문서화 하는게 다소 서툴다보니 Responses 부분에서 요청실패 했을때 에러코드들이 일관적으로 보이는데," +
+                        " 실제 TEST 시 동일한 http 상태코드를 리턴하지는 않습니다. (아마 content 를 enum class 로 설정해놓아서 첫번째 enum 이 일괄적으로 보이는것 같습니다.) 이 점 양해부탁드립니다.)  ")
+
                 .build();
     }
 }
